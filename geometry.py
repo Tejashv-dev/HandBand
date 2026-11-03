@@ -47,15 +47,13 @@ def paint_filter_in_polygon(frame, polygon_pts, filtro_func):
     filtered_roi = filtro_func(roi)
 
     mask_3ch = cv2.cvtColor(mask_roi, cv2.COLOR_GRAY2BGR).astype(np.float32) / 255.0
-    blended = (filtered_roi * mask_3ch + roi * (1 - mask_3ch)).astype(np.uint8)
+    blended = (filtered_roi * mask_3ch + roi * (1.0 - mask_3ch)).astype(np.uint8)
     frame[y : y + bh, x : x + bw] = blended
     return frame
 
 
 def render_portal(frame, p1, p2, p3, p4, filtro_func):
     full_polygon = np.array([p1, p3, p4, p2], dtype=np.int32)
-
     paint_filter_in_polygon(frame, full_polygon, filtro_func)
-
     cv2.polylines(frame, [full_polygon], isClosed=True, color=(255, 255, 255), thickness=1)
     return frame
