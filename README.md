@@ -1,96 +1,66 @@
 # Filters
 
-Es un proyecto de realidad aumentada que genera un portal interactivo en el video de la cámara utilizando el seguimiento de manos en tiempo real. A través de un gesto natural, el usuario puede alternar entre 8 filtros visuales distintos que se renderizan en vivo dentro del portal.
+An augmented reality project that generates an interactive portal within the camera feed using real-time hand tracking. Through a natural gesture, users can switch between 8 different visual filters, which are rendered live inside the portal.
 
 ---
 
-## Características
+## Features
 
-- Seguimiento de manos en tiempo real mediante MediaPipe Hands.
-- Portal en perspectiva construido dinámicamente a partir de las puntas de índice y pulgar de ambas manos.
-- Ocho filtros visuales aplicados exclusivamente dentro del área del portal.
-- Cambio de filtro mediante gesto: acercar las manos activa la transición al siguiente filtro de la secuencia.
-- Sistema de histéresis para evitar cambios accidentales por temblores o imprecisión del tracking.
+- Real-time hand tracking using MediaPipe Hands.
+- Perspective-based portal dynamically constructed using the index finger and thumb tips of both hands.
+- Eight visual filters applied exclusively within the portal area.
+- Gesture-based filter switching: bringing the hands closer together triggers a transition to the next filter in the sequence.
+- Hysteresis system to prevent accidental switching caused by hand tremors or tracking inaccuracies.
 
-## Filtros incluidos
+## Included Filters
 
-| Filtro | Descripción |
+| Filter | Description |
 |--------|-------------|
-| `filtro_grid` | Superposición de cuadrícula sobre la imagen original |
-| `filtro_1` | Duotono segmentado por umbrales de luminosidad |
-| `filtro_2` | Trama de puntos (halftone) en blanco y negro |
-| `filtro_3` | Aberración cromática con separación de canales RGB |
-| `filtro_5` | Simulación de cámara térmica mediante colormap |
-| `filtro_6` | Estilo vintage sepia con viñeteado y grano |
-| `filtro_blanco` | Efecto de vidrio esmerilado sobre la imagen |
-| `filtro_rosa` | Halftone en duotono rosa-magenta |
+| `filtro_grid` | Grid overlay on the original image |
+| `filtro_1` | Threshold-based duotone effect using brightness levels |
+| `filtro_2` | Black-and-white halftone dot pattern |
+| `filtro_3` | Chromatic aberration with RGB channel separation |
+| `filtro_5` | Thermal camera simulation using a colormap |
+| `filtro_6` | Vintage sepia effect with vignetting and grain |
+| `filtro_blanco` | Frosted glass effect applied to the image |
+| `filtro_rosa` | Pink-magenta duotone halftone effect |
 
-## Instalación
+## Installation
 
-Clonar el repositorio:
+Clone the repository:
 
 ```bash
 git clone https://github.com/mishu006/Filters.git
 cd Filters
 ```
 
-Crear un entorno virtual:
+Create a virtual environment:
 
 ```bash
 python -m venv venv
 ```
 
-Activarlo:
+Activate it:
 
 ```bash
-venv\Scripts\activate      # Windows
-source venv/bin/activate   # macOS / Linux
+venv\Scripts\activate       # Windows
+source venv/bin/activate    # macOS / Linux
 ```
 
-Instalar las dependencias:
+Install the dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-## Uso
+## Usage
 
 ```bash
 python main.py
 ```
 
-Con la cámara activa, levanta ambas manos con el índice y el pulgar extendidos: el portal se genera automáticamente entre ellas. Acércalas para "cerrarlas" y avanzar al siguiente filtro de la lista. Presiona **`q`** con la ventana activa para finalizar la ejecución.
+With the camera running, raise both hands with your index fingers and thumbs extended. The portal will automatically appear between them.
 
-## Estructura del proyecto
+Bring your hands closer together to "close" the portal and advance to the next filter in the list.
 
-```
-Filters/
-├── main.py            Punto de entrada: bucle de captura y ciclo de filtros
-├── hand_tracking.py    Detección de dedos extendidos a partir de los landmarks
-├── geometry.py          Geometría del portal y detección del gesto de cierre
-├── filters.py            Definición de los ocho filtros disponibles
-├── requirements.txt
-└── README.md
-```
-
-## Extender el proyecto
-
-Para agregar un nuevo filtro, basta con definir una función en `filters.py` que reciba un recorte en formato BGR (`numpy.ndarray`) y devuelva un recorte del mismo tamaño:
-
-```python
-def filtro_nuevo(roi: np.ndarray) -> np.ndarray:
-    return roi
-```
-
-Después, incorpórala a la lista `FILTROS` al final del archivo. El ciclo de filtros se ajusta automáticamente a la cantidad de elementos que contenga esa lista.
-
-## Stack técnico
-
-- Python 3.10
-- OpenCV
-- MediaPipe
-- NumPy
-
-## Licencia
-
-Este proyecto se distribuye bajo licencia MIT.
+Press **`q`** while the application window is
